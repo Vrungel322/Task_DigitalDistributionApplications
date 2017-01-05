@@ -1,4 +1,4 @@
-package com.nanddgroup.task_digitaldistributionapplications.usecase;
+package com.nanddgroup.task_digitaldistributionapplications.domain.usecase;
 
 import android.util.Log;
 

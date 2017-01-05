@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nanddgroup.task_digitaldistributionapplications.App;
 import com.nanddgroup.task_digitaldistributionapplications.R;
+import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        App.getApp(this).getComponent().inject(this);
         mainActivityPresenter.bind(this);
         mainActivityPresenter.uploadData();
     }
@@ -42,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
-    public void showData() {
+    public void showData(List<StudentEntity> studentEntities) {
+        tvTestText.setText(studentEntities.get(0).getFirstName());
 
     }
 }
