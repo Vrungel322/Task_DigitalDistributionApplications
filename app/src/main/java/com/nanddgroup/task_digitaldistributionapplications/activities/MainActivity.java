@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 import com.nanddgroup.task_digitaldistributionapplications.App;
 import com.nanddgroup.task_digitaldistributionapplications.R;
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.adapters.StudentsAdapter;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
 
 import java.util.List;

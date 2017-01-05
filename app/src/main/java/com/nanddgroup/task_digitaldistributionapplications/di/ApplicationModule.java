@@ -8,6 +8,7 @@ import com.nanddgroup.task_digitaldistributionapplications.SessionRepository;
 import com.nanddgroup.task_digitaldistributionapplications.data.SessionDataRepository;
 import com.nanddgroup.task_digitaldistributionapplications.data.db.DBHelper;
 import com.nanddgroup.task_digitaldistributionapplications.data.db.DbStudentHelper;
+import com.nanddgroup.task_digitaldistributionapplications.data.mappers.StudentEntityToContentValueMapper;
 import com.nanddgroup.task_digitaldistributionapplications.rest.Api;
 import com.nanddgroup.task_digitaldistributionapplications.rest.RestApi;
 
@@ -84,8 +85,13 @@ public class ApplicationModule {
     }
 
     @Provides
-    public DbStudentHelper provideContactHelper(DBHelper helper) {
-        return new DbStudentHelper(helper);
+    public StudentEntityToContentValueMapper provideMapper() {
+        return new StudentEntityToContentValueMapper();
+    }
+
+    @Provides
+    public DbStudentHelper provideContactHelper(DBHelper helper, StudentEntityToContentValueMapper mapper) {
+        return new DbStudentHelper(helper, mapper);
     }
 
     @Provides

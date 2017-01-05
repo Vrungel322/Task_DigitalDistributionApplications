@@ -1,5 +1,7 @@
 package com.nanddgroup.task_digitaldistributionapplications;
 
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
+
 import java.util.List;
 
 import rx.Observable;
@@ -10,5 +12,7 @@ import rx.Observable;
 
 public interface SessionRepository {
 
-    Observable<List<com.nanddgroup.task_digitaldistributionapplications.StudentEntity>> loadAllStudents();
+    Observable<List<StudentEntity>> loadAllStudents();
+
+    Observable<List<StudentEntity>> saveStudentsToDb(List<StudentEntity> students);
 }

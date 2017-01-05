@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nanddgroup.task_digitaldistributionapplications.R;
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
                 .load(R.drawable.student_icon)
                 .into(holder.ivStudentIcon);
         holder.tvStudentsFullName.setText(student.getFirstName() + " " + student.getLastName());
-//        holder.tvStudentsBirthDate.setText(student.getBirthday());
+        holder.tvStudentsBirthDate.setText(String.valueOf(student.getBirthday()));
         holder.ivInfo.setOnClickListener(view -> {
             //todo Info dialog
         });

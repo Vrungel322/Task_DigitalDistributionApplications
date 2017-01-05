@@ -1,9 +1,7 @@
 
-package com.nanddgroup.task_digitaldistributionapplications;
+package com.nanddgroup.task_digitaldistributionapplications.rest.entity;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.nanddgroup.task_digitaldistributionapplications.rest.entity.Course;
 
 import java.util.List;
 
@@ -20,6 +18,14 @@ public class StudentEntity {
     private int birthday;
     @SerializedName("courses")
     private List<Course> courses = null;
+
+    public StudentEntity(int birthday, List<Course> courses, String firstName, String id, String lastName) {
+        this.birthday = birthday;
+        this.courses = courses;
+        this.firstName = firstName;
+        this.id = id;
+        this.lastName = lastName;
+    }
 
     public String getId() {
         return id;

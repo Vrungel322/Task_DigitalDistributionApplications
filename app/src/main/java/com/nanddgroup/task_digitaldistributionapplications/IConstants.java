@@ -8,4 +8,20 @@ public interface IConstants {
     String DOMEN = "ddapp-sfa-api.azurewebsites.net";
     String BASE_URL = "http://" + DOMEN + "/";
 
+    interface DB{
+        String STUDENT_ID = "STUDENT_ID";
+        String STUDENT_ORIGINAL_ID = "STUDENT_ORIGINAL_ID";
+        String STUDENT_FIRST_NAME = "STUDENT_FIRST_NAME";
+        String STUDENT_LAST_NAME = "STUDENT_LAST_NAME";
+        String STUDENT_BIRTHDAY = "STUDENT_BIRTHDAY";
+        String STUDENT_MARK_COURSE_0 = "STUDENT_MARK_COURSE_0";
+        String STUDENT_MARK_COURSE_1 = "STUDENT_MARK_COURSE_1";
+        String STUDENT_MARK_COURSE_2 = "STUDENT_MARK_COURSE_2";
+        String STUDENT_MARK_COURSE_3 = "STUDENT_MARK_COURSE_3";
+        String STUDENT_NAME_COURSE_0 = "STUDENT_NAME_COURSE_0";
+        String STUDENT_NAME_COURSE_1 = "STUDENT_NAME_COURSE_1";
+        String STUDENT_NAME_COURSE_2 = "STUDENT_NAME_COURSE_2";
+        String STUDENT_NAME_COURSE_3 = "STUDENT_NAME_COURSE_3";
+    }
+
 }

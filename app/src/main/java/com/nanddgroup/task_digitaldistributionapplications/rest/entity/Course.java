@@ -1,7 +1,6 @@
 
 package com.nanddgroup.task_digitaldistributionapplications.rest.entity;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Course {
@@ -10,6 +9,11 @@ public class Course {
     private String name;
     @SerializedName("mark")
     private int mark;
+
+    public Course(int mark, String name) {
+        this.mark = mark;
+        this.name = name;
+    }
 
     public String getName() {
         return name;

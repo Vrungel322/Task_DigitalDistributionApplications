@@ -2,7 +2,7 @@ package com.nanddgroup.task_digitaldistributionapplications.rest;
 
 import android.content.Context;
 
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class RestApi {
         this.c = c;
     }
 
-    public Observable<List<StudentEntity>> getAllContacts() {
+    public Observable<List<StudentEntity>> getAllStudents() {
         return api.getAllStudents();
     }
 }

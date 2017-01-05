@@ -1,7 +1,7 @@
 package com.nanddgroup.task_digitaldistributionapplications.domain.usecase;
 
 import com.nanddgroup.task_digitaldistributionapplications.SessionRepository;
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.nanddgroup.task_digitaldistributionapplications.presenters;
 
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.domain.BaseUseCaseSubscriber;
 import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsUseCase;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
 
 import java.util.List;

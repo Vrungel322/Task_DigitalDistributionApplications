@@ -1,6 +1,6 @@
 package com.nanddgroup.task_digitaldistributionapplications.rest;
 
-import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
+import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 
 import java.util.List;
 
