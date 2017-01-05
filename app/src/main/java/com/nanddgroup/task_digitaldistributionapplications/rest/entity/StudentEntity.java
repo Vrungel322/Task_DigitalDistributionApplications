@@ -11,19 +11,14 @@ import java.util.List;
 public class StudentEntity {
 
     @SerializedName("id")
-    @Expose
     private String id;
     @SerializedName("firstName")
-    @Expose
     private String firstName;
     @SerializedName("lastName")
-    @Expose
     private String lastName;
     @SerializedName("birthday")
-    @Expose
     private int birthday;
     @SerializedName("courses")
-    @Expose
     private List<Course> courses = null;
 
     public String getId() {

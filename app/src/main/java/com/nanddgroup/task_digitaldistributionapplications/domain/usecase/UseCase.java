@@ -24,7 +24,7 @@ public abstract class UseCase<T> {
         Log.e("subscription", "subscribe " + observable);
         if (observable == null)
             observable = getUseCaseObservable()
-                    .subscribeOn(Schedulers.newThread())
+                    .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .cache()
                     .doOnError((t) -> observable = null)

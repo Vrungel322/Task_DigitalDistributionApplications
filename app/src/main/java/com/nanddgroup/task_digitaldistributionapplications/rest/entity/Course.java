@@ -7,10 +7,8 @@ import com.google.gson.annotations.SerializedName;
 public class Course {
 
     @SerializedName("name")
-    @Expose
     private String name;
     @SerializedName("mark")
-    @Expose
     private int mark;
 
     public String getName() {

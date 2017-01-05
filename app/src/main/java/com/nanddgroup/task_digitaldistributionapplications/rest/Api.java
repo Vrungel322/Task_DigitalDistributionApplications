@@ -2,6 +2,8 @@ package com.nanddgroup.task_digitaldistributionapplications.rest;
 
 import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 
+import java.util.List;
+
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -12,5 +14,5 @@ import rx.Observable;
 public interface Api {
 
     @GET("api/test/sampleData")
-    Observable<StudentEntity> getAllStudents();
+    Observable<List<StudentEntity>> getAllStudents();
 }

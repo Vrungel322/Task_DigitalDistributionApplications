@@ -32,12 +32,38 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
     }
 
     public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsSubscriber() {
-        return new BaseUseCaseSubscriber<List<StudentEntity>>(){
+        return new BaseUseCaseSubscriber<List<StudentEntity>>() {
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (getView() != null) {
+                    getView().showProgress();
+                }
+            }
+
             @Override
             public void onNext(List<StudentEntity> studentEntities) {
                 super.onNext(studentEntities);
-                if(getView() != null) {
+                if (getView() != null) {
                     getView().showData(studentEntities);
+                    getView().hideProgress();
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                super.onCompleted();
+                if (getView() != null) {
+                    getView().hideProgress();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (getView() != null) {
+                    getView().hideProgress();
+                    getView().showMessage("Something went wrong");
                 }
             }
         };

@@ -2,6 +2,8 @@ package com.nanddgroup.task_digitaldistributionapplications.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements IMainActivityView {
     @BindView(R.id.tvTestText)
     TextView tvTestText;
+    @BindView(R.id.pbProgress)
+    ProgressBar pbProgress;
 
     @Inject
     MainActivityPresenter mainActivityPresenter;
@@ -48,7 +52,19 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void showData(List<StudentEntity> studentEntities) {
-        tvTestText.setText(studentEntities.get(0).getFirstName());
+        showMessage(String.valueOf(studentEntities.size()));
+        showMessage(studentEntities.get(228).getFirstName());
+        tvTestText.setText(studentEntities.get(228).getId());
 
+    }
+
+    @Override
+    public void showProgress() {
+        pbProgress.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        pbProgress.setVisibility(View.GONE);
     }
 }

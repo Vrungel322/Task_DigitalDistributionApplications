@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.nanddgroup.task_digitaldistributionapplications.StudentEntity;
 
+import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -19,7 +21,7 @@ public class RestApi {
         this.c = c;
     }
 
-    public Observable<StudentEntity> getAllContacts() {
+    public Observable<List<StudentEntity>> getAllContacts() {
         return api.getAllStudents();
     }
 }
