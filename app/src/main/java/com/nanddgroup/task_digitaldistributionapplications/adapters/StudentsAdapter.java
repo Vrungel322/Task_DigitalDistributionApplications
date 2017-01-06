@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +41,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     private OnItemLongClickListener onItemLongClickListener;
     @Nullable
     private OnItemClickListener onItemClickListener;
+    private int lastPosition;
 
     public StudentsAdapter(Context context, MainActivityPresenter mainActivityPresenter, RecyclerView rvStudents) {
         this.context = context;
@@ -63,11 +66,24 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         holder.tvStudentsFullName.setText(student.getFirstName() + " " + student.getLastName());
         holder.tvStudentsBirthDate.setText(String.valueOf(student.getBirthday()));
         holder.ivInfo.setOnClickListener(view -> {
-            //todo Info dialog
             StudentCoursesInfoDialog.newInstance(student)
                     .show(((MainActivity)context).getSupportFragmentManager(), "tag");
         });
 
+        addAnimation(holder, position);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(StudentViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
+    }
+
+    private void addAnimation(StudentViewHolder holder, int position) {
+        Animation animation = AnimationUtils.loadAnimation(context,
+                (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        holder.itemView.startAnimation(animation);
+        lastPosition = position;
     }
 
     @Override
@@ -102,7 +118,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 //            notifyDataSetChanged();
 //        }
 //        else {
-            notifyItemRangeChanged(size, IConstants.PAGE_SIZE);
+            notifyItemRangeInserted(size, IConstants.PAGE_SIZE);
 //        }
     }
 
