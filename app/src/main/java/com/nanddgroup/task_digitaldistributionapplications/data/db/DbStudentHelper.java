@@ -98,23 +98,31 @@ public class DbStudentHelper {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark) {
+    public Observable<List<StudentEntity>> getLimitNumberOfStudentsFromDb(Integer limit) {
+        String selectAll = "SELECT * FROM " + TABLE_NAME + " LIMIT " + limit.toString();
+        return select(selectAll)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark,
+                                                                        Integer limit) {
         String selectByMark = null;
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_0)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + ") ";
+                    IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_1)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + ") ";
+                    IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_2)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + ") ";
+                    IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_3)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark + ") ";
+                    IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
         }
         Log.e("helper", selectByMark);
         //todo right selection

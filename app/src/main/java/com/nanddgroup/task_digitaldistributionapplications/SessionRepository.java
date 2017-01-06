@@ -16,7 +16,9 @@ public interface SessionRepository {
 
     Observable<List<StudentEntity>> saveStudentsToDb(List<StudentEntity> students);
 
-    Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark);
+    Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark, Integer limit);
 
     Observable<List<StudentEntity>> getStudentsFromDb();
+
+    Observable<List<StudentEntity>> getLimitNumberOfStudentsFromDb(Integer limit);
 }

@@ -7,6 +7,7 @@ package com.nanddgroup.task_digitaldistributionapplications;
 public interface IConstants {
     String DOMEN = "ddapp-sfa-api.azurewebsites.net";
     String BASE_URL = "http://" + DOMEN + "/";
+    Integer PAGE_SIZE = 20;
 
     interface DB{
         String STUDENT_ID = "STUDENT_ID";

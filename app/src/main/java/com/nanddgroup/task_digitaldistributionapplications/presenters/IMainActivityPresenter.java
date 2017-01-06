@@ -7,4 +7,5 @@ package com.nanddgroup.task_digitaldistributionapplications.presenters;
 public interface IMainActivityPresenter {
     void uploadData();
     void filterData(String courseName, Integer courseMark);
+    void uploadOneMorePage();
 }

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @Override
     public void showData(List<StudentEntity> studentEntities) {
-        studentsAdapter.appendStudents(studentEntities);
+        studentsAdapter.showUpdatedStudents(studentEntities);
         studentsAdapter.setStudents_savelist(studentEntities);
     }
 

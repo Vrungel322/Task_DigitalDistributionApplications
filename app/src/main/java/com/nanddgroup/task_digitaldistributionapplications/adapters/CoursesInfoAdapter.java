@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nanddgroup.task_digitaldistributionapplications.R;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.Course;
@@ -36,7 +35,6 @@ public class CoursesInfoAdapter extends ArrayAdapter<Course> {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
-        Toast.makeText(getContext(), String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
     }
 
     @Override

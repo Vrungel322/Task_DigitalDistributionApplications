@@ -19,6 +19,7 @@ public class GetStudentsFromDbByFilter extends UseCase<List<StudentEntity>> {
     private SessionRepository sessionRepository;
     private String courseName;
     private Integer courseMark;
+    private Integer limit;
 
     @Inject
     public GetStudentsFromDbByFilter(SessionRepository sessionRepository) {
@@ -33,14 +34,18 @@ public class GetStudentsFromDbByFilter extends UseCase<List<StudentEntity>> {
         this.courseMark = courseMark;
     }
 
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
     @Override
     protected Observable<List<StudentEntity>> getUseCaseObservable() {
         if (!courseName.equals("") & courseMark != 0) {
             Log.wtf("DB_TEST", "1");
-            return sessionRepository.getStudentsFromDbByFilter(courseName, courseMark);
+            return sessionRepository.getStudentsFromDbByFilter(courseName, courseMark, limit);
         } else {
             Log.wtf("DB_TEST", "2");
-            return sessionRepository.getStudentsFromDb();
+            return sessionRepository.getLimitNumberOfStudentsFromDb(limit);
         }
     }
 }

@@ -42,12 +42,17 @@ public class SessionDataRepository implements SessionRepository {
     }
 
     @Override
-    public Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark) {
-        return dbHelper.getAllFilteredStudentsFromDb(courseName, courseMark);
+    public Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark, Integer limit) {
+        return dbHelper.getAllFilteredStudentsFromDb(courseName, courseMark, limit);
     }
 
     @Override
     public Observable<List<StudentEntity>> getStudentsFromDb() {
         return dbHelper.getAllStudentsFromDb();
+    }
+
+    @Override
+    public Observable<List<StudentEntity>> getLimitNumberOfStudentsFromDb(Integer limit) {
+        return dbHelper.getLimitNumberOfStudentsFromDb(limit);
     }
 }
