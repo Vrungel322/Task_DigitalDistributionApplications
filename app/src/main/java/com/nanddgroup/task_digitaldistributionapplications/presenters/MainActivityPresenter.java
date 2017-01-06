@@ -53,20 +53,11 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
     public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsFromDbSubscriber() {
         return new BaseUseCaseSubscriber<List<StudentEntity>>() {
             @Override
-            public void onStart() {
-                super.onStart();
-                if (getView() != null) {
-                    getView().showProgress();
-                    getView().showMessage("Start loading data from database");
-                }
-            }
-
-            @Override
             public void onNext(List<StudentEntity> studentEntities) {
                 super.onNext(studentEntities);
                 if (getView() != null) {
                     getView().showOneMorePageData(studentEntities);
-                    getView().hideProgress();
+                    getView().showMessage("Students loaded");
                 }
             }
 
@@ -74,8 +65,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
             public void onError(Throwable e) {
                 super.onError(e);
                 if (getView() != null) {
-                    getView().hideProgress();
-                    getView().showMessage("Something went wrong... Restart app");
+                    getView().showMessage("Something went wrong... Restart app and check INTERNET connection");
                 }
             }
         };
@@ -96,6 +86,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
             public void onNext(List<StudentEntity> studentEntities) {
                 super.onNext(studentEntities);
                 if (getView() != null) {
+                    getView().hideProgress();
                     getStudentsFromDbByPagesUseCase.setLimit(IConstants.PAGE_SIZE);
                     getStudentsFromDbByPagesUseCase.execute(getStudentsFromDbSubscriber());
                 }
@@ -113,7 +104,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
     }
 
     public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsFromDbByFilterSubscriber() {
-        return new BaseUseCaseSubscriber<List<StudentEntity>>(){
+        return new BaseUseCaseSubscriber<List<StudentEntity>>() {
             @Override
             public void onStart() {
                 super.onStart();
