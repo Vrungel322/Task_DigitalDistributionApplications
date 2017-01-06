@@ -49,7 +49,7 @@ public class ApplicationModule {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder()
-                .readTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
     }
@@ -80,21 +80,25 @@ public class ApplicationModule {
     }
 
     @Provides
+    @Singleton
     public DBHelper provideDBHelper(Context context) {
         return new DBHelper(context);
     }
 
     @Provides
+    @Singleton
     public StudentEntityToContentValueMapper provideMapper() {
         return new StudentEntityToContentValueMapper();
     }
 
     @Provides
+    @Singleton
     public DbStudentHelper provideContactHelper(DBHelper helper, StudentEntityToContentValueMapper mapper) {
         return new DbStudentHelper(helper, mapper);
     }
 
     @Provides
+    @Singleton
     public SessionRepository provideRepository(RestApi restApi,
                                                DbStudentHelper dbHelper) {
         return new SessionDataRepository(restApi, dbHelper);
