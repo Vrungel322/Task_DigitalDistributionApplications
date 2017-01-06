@@ -1,6 +1,7 @@
 package com.nanddgroup.task_digitaldistributionapplications.presenters;
 
 import com.nanddgroup.task_digitaldistributionapplications.domain.BaseUseCaseSubscriber;
+import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByFilter;
 import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsUseCase;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
@@ -15,20 +16,26 @@ import javax.inject.Inject;
 
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> implements IMainActivityPresenter {
     private GetStudentsUseCase getStudentsUseCase;
+    private GetStudentsFromDbByFilter getStudentsFromDbByFilter;
 
     @Inject
-    public MainActivityPresenter(GetStudentsUseCase getStudentsUseCase) {
+    public MainActivityPresenter(GetStudentsUseCase getStudentsUseCase, GetStudentsFromDbByFilter getStudentsFromDbByFilter) {
         this.getStudentsUseCase = getStudentsUseCase;
+        this.getStudentsFromDbByFilter = getStudentsFromDbByFilter;
     }
 
-    @Override
-    public void bind(IMainActivityView view) {
-        super.bind(view);
-    }
+
 
     @Override
     public void uploadData() {
         getStudentsUseCase.execute(getStudentsSubscriber());
+    }
+
+    @Override
+    public void filterData(String courseName, Integer courseMark) {
+        getStudentsFromDbByFilter.setCourseName(courseName);
+        getStudentsFromDbByFilter.setCourseMark(courseMark);
+        getStudentsFromDbByFilter.execute(getStudentsFromDbByFilterSubscriber());
     }
 
     public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsSubscriber() {
@@ -69,9 +76,42 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
         };
     }
 
+    public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsFromDbByFilterSubscriber() {
+        return new BaseUseCaseSubscriber<List<StudentEntity>>(){
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (getView() != null) {
+                    getView().showProgress();
+                }
+            }
+
+            @Override
+            public void onNext(List<StudentEntity> studentEntities) {
+                super.onNext(studentEntities);
+                if (getView() != null) {
+                    getView().showFilteredData(studentEntities);
+                    getView().hideProgress();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                if (getView() != null) {
+                    getView().showProgress();
+                    getView().showMessage("Error in filtering");
+                }
+            }
+        };
+    }
+
     @Override
     public void unbind() {
+        getStudentsFromDbByFilter.unsubscribe();
         getStudentsUseCase.unsubscribe();
         super.unbind();
     }
+
+
 }

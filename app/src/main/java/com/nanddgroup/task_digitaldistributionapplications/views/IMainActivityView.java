@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface IMainActivityView extends IAppMainView {
     void showData(List<StudentEntity> studentEntities);
+    void showFilteredData(List<StudentEntity> studentEntities);
     void showProgress();
     void hideProgress();
+
 }

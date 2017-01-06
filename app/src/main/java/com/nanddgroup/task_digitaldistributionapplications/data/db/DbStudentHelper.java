@@ -3,6 +3,7 @@ package com.nanddgroup.task_digitaldistributionapplications.data.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.data.mappers.StudentEntityToContentValueMapper;
@@ -68,12 +69,34 @@ public class DbStudentHelper {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark) {
+        String selectByName = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                IConstants.DB.STUDENT_NAME_COURSE_0 + " = " + courseName + " OR " +
+                IConstants.DB.STUDENT_NAME_COURSE_1 + " = " + courseName + " OR " +
+                IConstants.DB.STUDENT_NAME_COURSE_2 + " = " + courseName + " OR " +
+                IConstants.DB.STUDENT_NAME_COURSE_3 + " = " + courseName +
+                ") " ;
+        String selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + " OR " +
+                IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + " OR " +
+                IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + " OR " +
+                IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark +
+                ") ";
+//        return select(selectByName)
+        //todo right selection
+        return select(selectByMark)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     @NonNull
     private Observable<List<StudentEntity>> select(String query) {
 //        Log.e("helper", query);
         return Observable.create(subscriber -> {
             List<StudentEntity> messages = synchronousSelect(query);
-
+            for (StudentEntity st : messages){
+                Log.e("helper",st.getFirstName()+" | " +  String.valueOf(st.getCourses().get(0).getMark()));
+            }
             subscriber.onNext(messages);
             subscriber.onCompleted();
         });
@@ -86,14 +109,14 @@ public class DbStudentHelper {
         Cursor cursor = db.rawQuery(query, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                students.add(fetchPContact(cursor));
+                students.add(fetchStudent(cursor));
             }
             cursor.close();
         }
         return students;
     }
 
-    private StudentEntity fetchPContact(Cursor cursor) {
+    private StudentEntity fetchStudent(Cursor cursor) {
         String studentId = DBCursorUtils.getString(cursor, IConstants.DB.STUDENT_ORIGINAL_ID);
         String studentName = DBCursorUtils.getString(cursor, IConstants.DB.STUDENT_FIRST_NAME);
         String studentSurname = DBCursorUtils.getString(cursor, IConstants.DB.STUDENT_LAST_NAME);

@@ -15,4 +15,8 @@ public interface SessionRepository {
     Observable<List<StudentEntity>> loadAllStudents();
 
     Observable<List<StudentEntity>> saveStudentsToDb(List<StudentEntity> students);
+
+    Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark);
+
+    Observable<List<StudentEntity>> getStudentsFromDb();
 }

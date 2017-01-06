@@ -1,6 +1,7 @@
 package com.nanddgroup.task_digitaldistributionapplications.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,12 +23,15 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView {
     @BindView(R.id.pbProgress)
     ProgressBar pbProgress;
     @BindView(R.id.rvStudents)
     RecyclerView rvStudents;
+    @BindView(R.id.fabFilter)
+    FloatingActionButton fabFilter;
 
     private StudentsAdapter studentsAdapter;
 
@@ -49,10 +53,19 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     }
 
+    @OnClick(R.id.fabFilter)
+    void onfabFilterClicked(){
+        mainActivityPresenter.filterData("Course-0", 1);
+    }
+
     @Override
-    protected void onDestroy() {
-        mainActivityPresenter.unbind();
-        super.onDestroy();
+    public void showData(List<StudentEntity> studentEntities) {
+        studentsAdapter.appendStudents(studentEntities);
+    }
+
+    @Override
+    public void showFilteredData(List<StudentEntity> studentEntities) {
+        studentsAdapter.showUpdatedStudents(studentEntities);
     }
 
     @Override
@@ -61,20 +74,20 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
-    public void showData(List<StudentEntity> studentEntities) {
-        showMessage(String.valueOf(studentEntities.size()));
-        showMessage(studentEntities.get(228).getFirstName());
-        studentsAdapter.appendStudents(studentEntities);
-
-    }
-
-    @Override
     public void showProgress() {
+        rvStudents.setVisibility(View.GONE);
         pbProgress.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
+        rvStudents.setVisibility(View.VISIBLE);
         pbProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mainActivityPresenter.unbind();
+        super.onDestroy();
     }
 }

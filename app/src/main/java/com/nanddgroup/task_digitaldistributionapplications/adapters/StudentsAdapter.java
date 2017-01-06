@@ -28,6 +28,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     private final LayoutInflater inflater;
     private final Context context;
     private final List<StudentEntity> students = new ArrayList<>();
+    private final List<StudentEntity> students_savelist = new ArrayList<>();
     private MainActivityPresenter mainActivityPresenter;
     private RecyclerView rvStudents;
 
@@ -73,11 +74,18 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         return students.get(position);
     }
 
-    public void appendStudents(List<StudentEntity> messages) {
+    public void appendStudents(List<StudentEntity> students) {
+        this.students.addAll(students);
         int size = getItemCount();
-        this.students.addAll(messages);
-        notifyItemRangeInserted(size, messages.size());
-        notifyItemChanged(size - 1);
+        notifyDataSetChanged();
+        scrollToLastMessage();
+    }
+
+    public void showUpdatedStudents(List<StudentEntity> students) {
+        this.students.clear();
+        this.students.addAll(students);
+        int size = getItemCount();
+        notifyDataSetChanged();
         scrollToLastMessage();
     }
 

@@ -1,7 +1,5 @@
 package com.nanddgroup.task_digitaldistributionapplications.data;
 
-import android.util.Log;
-
 import com.nanddgroup.task_digitaldistributionapplications.SessionRepository;
 import com.nanddgroup.task_digitaldistributionapplications.data.db.DbStudentHelper;
 import com.nanddgroup.task_digitaldistributionapplications.rest.RestApi;
@@ -37,9 +35,19 @@ public class SessionDataRepository implements SessionRepository {
         return Observable.from(students)
                 .map(studentEntity -> {
                     dbHelper.insert(studentEntity);
-                    Log.wtf("DB_TEST", studentEntity.getFirstName());
+//                    Log.wtf("DB_TEST", studentEntity.getFirstName());
                     return studentEntity;
                 })
                 .toList();
+    }
+
+    @Override
+    public Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark) {
+        return dbHelper.getAllFilteredStudentsFromDb(courseName, courseMark);
+    }
+
+    @Override
+    public Observable<List<StudentEntity>> getStudentsFromDb() {
+        return dbHelper.getAllStudentsFromDb();
     }
 }
