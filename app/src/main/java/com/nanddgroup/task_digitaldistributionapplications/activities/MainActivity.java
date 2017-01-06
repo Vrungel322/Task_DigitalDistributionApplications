@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     FloatingActionButton fabFilter;
 
     private StudentsAdapter studentsAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Inject
     MainActivityPresenter mainActivityPresenter;
@@ -45,10 +46,28 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         App.getApp(this).getComponent().inject(this);
-        rvStudents.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        rvStudents.setLayoutManager(linearLayoutManager);
         rvStudents.setItemAnimator(new DefaultItemAnimator());
         studentsAdapter = new StudentsAdapter(this, mainActivityPresenter, rvStudents);
         rvStudents.setAdapter(studentsAdapter);
+        rvStudents.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = linearLayoutManager.getChildCount();
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
+//                if (!isLoading && !isLastPage) {
+                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                            && firstVisibleItemPosition >= 0
+                            && totalItemCount >= IConstants.PAGE_SIZE) {
+                        mainActivityPresenter.uploadOneMorePage();
+                    }
+//                }
+            }
+        });
         mainActivityPresenter.bind(this);
         mainActivityPresenter.uploadData();
 
@@ -59,15 +78,21 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         mainActivityPresenter.filterData(IConstants.DB.STUDENT_NAME_COURSE_0, 1);
     }
 
+//    @Override
+//    public void showData(List<StudentEntity> studentEntities) {
+//        studentsAdapter.showUpdatedStudents(studentEntities);
+//        studentsAdapter.setStudents_savelist(studentEntities);
+//    }
+
     @Override
-    public void showData(List<StudentEntity> studentEntities) {
-        studentsAdapter.showUpdatedStudents(studentEntities);
+    public void showOneMorePageData(List<StudentEntity> studentEntities) {
+        studentsAdapter.showOneMorePageStudents(studentEntities);
         studentsAdapter.setStudents_savelist(studentEntities);
     }
 
     @Override
     public void showFilteredData(List<StudentEntity> studentEntities) {
-        studentsAdapter.showUpdatedStudents(studentEntities);
+        studentsAdapter.showFilteredStudents(studentEntities);
     }
 
     @Override

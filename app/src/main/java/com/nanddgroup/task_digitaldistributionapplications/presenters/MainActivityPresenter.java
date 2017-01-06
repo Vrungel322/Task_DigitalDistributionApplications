@@ -65,7 +65,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
             public void onNext(List<StudentEntity> studentEntities) {
                 super.onNext(studentEntities);
                 if (getView() != null) {
-                    getView().showData(studentEntities);
+                    getView().showOneMorePageData(studentEntities);
                     getView().hideProgress();
                 }
             }

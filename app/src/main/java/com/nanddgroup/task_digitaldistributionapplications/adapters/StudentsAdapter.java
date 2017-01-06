@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.R;
 import com.nanddgroup.task_digitaldistributionapplications.activities.MainActivity;
 import com.nanddgroup.task_digitaldistributionapplications.fragments.StudentCoursesInfoDialog;
@@ -78,19 +79,31 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         return students.get(position);
     }
 
-    public void appendStudents(List<StudentEntity> students) {
-        this.students.addAll(students);
+    public void showFilteredStudents(List<StudentEntity> studentEntities) {
+        this.students.clear();
+        this.students.addAll(studentEntities);
         int size = getItemCount();
         notifyDataSetChanged();
-        scrollToLastMessage();
     }
 
-    public void showUpdatedStudents(List<StudentEntity> students) {
+//    public void showUpdatedStudents(List<StudentEntity> studentEntities) {
+//        this.students.clear();
+//        this.students.addAll(studentEntities);
+//        int size = getItemCount();
+//        notifyDataSetChanged();
+////        scrollToLastMessage();
+//    }
+
+    public void showOneMorePageStudents(List<StudentEntity> studentEntities) {
         this.students.clear();
-        this.students.addAll(students);
+        this.students.addAll(studentEntities);
         int size = getItemCount();
-        notifyDataSetChanged();
-        scrollToLastMessage();
+//        if (size == 0){
+//            notifyDataSetChanged();
+//        }
+//        else {
+            notifyItemRangeChanged(size, IConstants.PAGE_SIZE);
+//        }
     }
 
     public void setStudents_savelist(List<StudentEntity> students){
