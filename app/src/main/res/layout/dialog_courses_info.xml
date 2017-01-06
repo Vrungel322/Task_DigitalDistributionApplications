@@ -5,19 +5,18 @@
     android:orientation="vertical">
 
     <ListView
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/lv_Courses_margin"
         android:id="@+id/lvCourses"
         android:clipToPadding="false"
-        android:layout_width="256dp"
-        android:dividerHeight="2dp"
+        android:layout_width="@dimen/lv_courses_width"
+        android:dividerHeight="@dimen/lv_courses_dividerHeight"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/tvAverageMark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="@dimen/tv_averageMark_margin"
         android:text="Average mark : " />
 
     <Button
@@ -25,9 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/b_ok_margin"
+        android:layout_marginRight="@dimen/b_ok_margin"
+        android:layout_marginTop="@dimen/b_ok_margin"
         android:background="#26a5ff"
         android:text="Ok" />
 

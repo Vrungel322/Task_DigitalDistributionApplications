@@ -6,10 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="8dp"
     tools:context="com.nanddgroup.task_digitaldistributionapplications.activities.MainActivity">
 
 
@@ -19,8 +15,8 @@
 
         <ProgressBar
             android:id="@+id/pbProgress"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/pb_size"
+            android:layout_height="@dimen/pb_size"
             android:layout_gravity="center"
             android:visibility="gone" />
 
@@ -31,6 +27,8 @@
             android:cacheColorHint="@android:color/transparent"
             android:clipToPadding="false"
             android:divider="@null"
+            android:layout_marginLeft="@dimen/rv_margin_left"
+            android:layout_marginRight="@dimen/rv_margin_right"
             android:listSelector="@android:color/transparent"
             android:overScrollMode="ifContentScrolls"
             android:scrollbars="none" />
@@ -39,6 +37,7 @@
             android:id="@+id/fabFilter"
             android:src="@android:drawable/ic_menu_sort_by_size"
             app:backgroundTint="#ed3077c4"
+            android:layout_margin="@dimen/fab_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"/>
