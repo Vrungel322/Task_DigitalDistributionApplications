@@ -24,8 +24,6 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
         this.getStudentsFromDbByFilter = getStudentsFromDbByFilter;
     }
 
-
-
     @Override
     public void uploadData() {
         getStudentsUseCase.execute(getStudentsSubscriber());
@@ -70,7 +68,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
                 super.onError(e);
                 if (getView() != null) {
                     getView().hideProgress();
-                    getView().showMessage("Something went wrong");
+                    getView().showMessage("Something went wrong... Restart app");
                 }
             }
         };

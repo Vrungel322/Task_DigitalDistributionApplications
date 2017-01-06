@@ -1,6 +1,7 @@
 package com.nanddgroup.task_digitaldistributionapplications.di;
 
 import com.nanddgroup.task_digitaldistributionapplications.activities.MainActivity;
+import com.nanddgroup.task_digitaldistributionapplications.fragments.StudentCoursesInfoDialog;
 
 import javax.inject.Singleton;
 
@@ -15,4 +16,6 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     void inject(MainActivity mainActivity);
+
+    void inject(StudentCoursesInfoDialog studentCoursesInfoDialog);
 }

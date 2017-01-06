@@ -1,12 +1,16 @@
 
 package com.nanddgroup.task_digitaldistributionapplications.rest.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class StudentEntity {
+public class StudentEntity implements Parcelable {
 
     @SerializedName("id")
     private String id;
@@ -67,4 +71,38 @@ public class StudentEntity {
         this.courses = courses;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeInt(birthday);
+        parcel.writeList(courses);
+    }
+
+    protected StudentEntity(Parcel in) {
+        courses = new ArrayList<Course>();
+        id = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        birthday = in.readInt();
+        in.readList(courses, null);
+    }
+
+    public static final Creator<StudentEntity> CREATOR = new Creator<StudentEntity>() {
+        @Override
+        public StudentEntity createFromParcel(Parcel in) {
+            return new StudentEntity(in);
+        }
+
+        @Override
+        public StudentEntity[] newArray(int size) {
+            return new StudentEntity[size];
+        }
+    };
 }

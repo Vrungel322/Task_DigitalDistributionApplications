@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nanddgroup.task_digitaldistributionapplications.R;
+import com.nanddgroup.task_digitaldistributionapplications.activities.MainActivity;
+import com.nanddgroup.task_digitaldistributionapplications.fragments.StudentCoursesInfoDialog;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.squareup.picasso.Picasso;
@@ -61,6 +63,8 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         holder.tvStudentsBirthDate.setText(String.valueOf(student.getBirthday()));
         holder.ivInfo.setOnClickListener(view -> {
             //todo Info dialog
+            StudentCoursesInfoDialog.newInstance(student)
+                    .show(((MainActivity)context).getSupportFragmentManager(), "tag");
         });
 
     }
@@ -87,6 +91,11 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         int size = getItemCount();
         notifyDataSetChanged();
         scrollToLastMessage();
+    }
+
+    public void setStudents_savelist(List<StudentEntity> students){
+        students_savelist.clear();
+        students_savelist.addAll(students);
     }
 
     private void scrollToLastMessage() {
