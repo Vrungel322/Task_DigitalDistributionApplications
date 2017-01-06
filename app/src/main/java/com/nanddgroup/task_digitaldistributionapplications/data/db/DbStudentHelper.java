@@ -58,37 +58,37 @@ public class DbStudentHelper {
 
     public long insert(StudentEntity studentEntity) {
         SQLiteDatabase db = helper.getWritableDatabase();
-//        long id = db.insert(TABLE_NAME, null, mapper.transform(studentEntity));
-        String insertStudent = "INSERT INTO " + TABLE_NAME + "( " +
-                "'" +IConstants.DB.STUDENT_ORIGINAL_ID + "'" + ", " +
-                "'" +IConstants.DB.STUDENT_FIRST_NAME + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_LAST_NAME + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_BIRTHDAY + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_MARK_COURSE_0 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_MARK_COURSE_1 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_MARK_COURSE_2 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_MARK_COURSE_3 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_NAME_COURSE_0 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_NAME_COURSE_1 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_NAME_COURSE_2 + "'"  + ", " +
-                "'" +IConstants.DB.STUDENT_NAME_COURSE_3 + "'"  +
-                ") VALUES ( " +
-                "'" + studentEntity.getId() + "'" + "," +
-                "'" + studentEntity.getFirstName() + "'" + "," +
-                "'" + studentEntity.getLastName() + "'" + "," +
-                "'" + String.valueOf(studentEntity.getBirthday()) + "'" + "," +
-                studentEntity.getCourses().get(0).getMark() + "," +
-                studentEntity.getCourses().get(1).getMark() + "," +
-                studentEntity.getCourses().get(2).getMark() + "," +
-                studentEntity.getCourses().get(3).getMark() + "," +
-                "'" + studentEntity.getCourses().get(0).getName() + "'" + "," +
-                "'" + studentEntity.getCourses().get(1).getName() + "'" + "," +
-                "'" + studentEntity.getCourses().get(2).getName() + "'" + "," +
-                "'" + studentEntity.getCourses().get(3).getName() + "'" +
-                ")";
-        Log.e("helper", insertStudent);
-        db.execSQL(insertStudent);
-        return 1;
+        long id = db.insert(TABLE_NAME, null, mapper.transform(studentEntity));
+//        String insertStudent = "INSERT INTO " + TABLE_NAME + "( " +
+//                "'" +IConstants.DB.STUDENT_ORIGINAL_ID + "'" + ", " +
+//                "'" +IConstants.DB.STUDENT_FIRST_NAME + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_LAST_NAME + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_BIRTHDAY + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_MARK_COURSE_0 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_MARK_COURSE_1 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_MARK_COURSE_2 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_MARK_COURSE_3 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_NAME_COURSE_0 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_NAME_COURSE_1 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_NAME_COURSE_2 + "'"  + ", " +
+//                "'" +IConstants.DB.STUDENT_NAME_COURSE_3 + "'"  +
+//                ") VALUES ( " +
+//                "'" + studentEntity.getId() + "'" + "," +
+//                "'" + studentEntity.getFirstName() + "'" + "," +
+//                "'" + studentEntity.getLastName() + "'" + "," +
+//                "'" + String.valueOf(studentEntity.getBirthday()) + "'" + "," +
+//                studentEntity.getCourses().get(0).getMark() + "," +
+//                studentEntity.getCourses().get(1).getMark() + "," +
+//                studentEntity.getCourses().get(2).getMark() + "," +
+//                studentEntity.getCourses().get(3).getMark() + "," +
+//                "'" + studentEntity.getCourses().get(0).getName() + "'" + "," +
+//                "'" + studentEntity.getCourses().get(1).getName() + "'" + "," +
+//                "'" + studentEntity.getCourses().get(2).getName() + "'" + "," +
+//                "'" + studentEntity.getCourses().get(3).getName() + "'" +
+//                ")";
+//        Log.e("helper", insertStudent);
+//        db.execSQL(insertStudent);
+        return id;
     }
 
     public Observable<List<StudentEntity>> getAllStudentsFromDb() {
