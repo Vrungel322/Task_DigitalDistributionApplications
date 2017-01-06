@@ -58,8 +58,37 @@ public class DbStudentHelper {
 
     public long insert(StudentEntity studentEntity) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        long id = db.insert(TABLE_NAME, null, mapper.transform(studentEntity));
-        return id;
+//        long id = db.insert(TABLE_NAME, null, mapper.transform(studentEntity));
+        String insertStudent = "INSERT INTO " + TABLE_NAME + "( " +
+                "'" +IConstants.DB.STUDENT_ORIGINAL_ID + "'" + ", " +
+                "'" +IConstants.DB.STUDENT_FIRST_NAME + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_LAST_NAME + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_BIRTHDAY + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_MARK_COURSE_0 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_MARK_COURSE_1 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_MARK_COURSE_2 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_MARK_COURSE_3 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_NAME_COURSE_0 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_NAME_COURSE_1 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_NAME_COURSE_2 + "'"  + ", " +
+                "'" +IConstants.DB.STUDENT_NAME_COURSE_3 + "'"  +
+                ") VALUES ( " +
+                "'" + studentEntity.getId() + "'" + "," +
+                "'" + studentEntity.getFirstName() + "'" + "," +
+                "'" + studentEntity.getLastName() + "'" + "," +
+                "'" + String.valueOf(studentEntity.getBirthday()) + "'" + "," +
+                studentEntity.getCourses().get(0).getMark() + "," +
+                studentEntity.getCourses().get(1).getMark() + "," +
+                studentEntity.getCourses().get(2).getMark() + "," +
+                studentEntity.getCourses().get(3).getMark() + "," +
+                "'" + studentEntity.getCourses().get(0).getName() + "'" + "," +
+                "'" + studentEntity.getCourses().get(1).getName() + "'" + "," +
+                "'" + studentEntity.getCourses().get(2).getName() + "'" + "," +
+                "'" + studentEntity.getCourses().get(3).getName() + "'" +
+                ")";
+        Log.e("helper", insertStudent);
+        db.execSQL(insertStudent);
+        return 1;
     }
 
     public Observable<List<StudentEntity>> getAllStudentsFromDb() {
@@ -70,19 +99,24 @@ public class DbStudentHelper {
     }
 
     public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark) {
-        String selectByName = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                IConstants.DB.STUDENT_NAME_COURSE_0 + " = " + courseName + " OR " +
-                IConstants.DB.STUDENT_NAME_COURSE_1 + " = " + courseName + " OR " +
-                IConstants.DB.STUDENT_NAME_COURSE_2 + " = " + courseName + " OR " +
-                IConstants.DB.STUDENT_NAME_COURSE_3 + " = " + courseName +
-                ") " ;
-        String selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + " OR " +
-                IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + " OR " +
-                IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + " OR " +
-                IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark +
-                ") ";
-//        return select(selectByName)
+        String selectByMark = null;
+        if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_0)) {
+            selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                    IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + ") ";
+        }
+        if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_1)) {
+            selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                    IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + ") ";
+        }
+        if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_2)) {
+            selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                    IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + ") ";
+        }
+        if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_3)) {
+            selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
+                    IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark + ") ";
+        }
+        Log.e("helper", selectByMark);
         //todo right selection
         return select(selectByMark)
                 .subscribeOn(Schedulers.io())
@@ -94,8 +128,9 @@ public class DbStudentHelper {
 //        Log.e("helper", query);
         return Observable.create(subscriber -> {
             List<StudentEntity> messages = synchronousSelect(query);
-            for (StudentEntity st : messages){
-                Log.e("helper",st.getFirstName()+" | " +  String.valueOf(st.getCourses().get(0).getMark()));
+            for (StudentEntity st : messages) {
+//                Log.e("helper", st.getFirstName() + " | " + String.valueOf(st.getCourses().get(0).getMark())
+//                        + " -> " + String.valueOf(st.getCourses().get(0).getName()));
             }
             subscriber.onNext(messages);
             subscriber.onCompleted();

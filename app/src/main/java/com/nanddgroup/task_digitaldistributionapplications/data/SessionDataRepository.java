@@ -24,7 +24,7 @@ public class SessionDataRepository implements SessionRepository {
 
     @Override
     public Observable<List<StudentEntity>> loadAllStudents() {
-        return restApi.getAllStudents()
+        return restApi.getAllStudentsFromServer()
                 .flatMap(this::saveStudentsToDb);
     }
 

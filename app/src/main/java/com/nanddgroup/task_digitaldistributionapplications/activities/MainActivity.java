@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nanddgroup.task_digitaldistributionapplications.App;
+import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.R;
 import com.nanddgroup.task_digitaldistributionapplications.adapters.StudentsAdapter;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @OnClick(R.id.fabFilter)
     void onfabFilterClicked(){
-        mainActivityPresenter.filterData("Course-0", 1);
+        mainActivityPresenter.filterData(IConstants.DB.STUDENT_NAME_COURSE_0, 1);
     }
 
     @Override

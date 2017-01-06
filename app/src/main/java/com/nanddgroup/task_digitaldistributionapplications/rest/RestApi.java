@@ -21,7 +21,7 @@ public class RestApi {
         this.c = c;
     }
 
-    public Observable<List<StudentEntity>> getAllStudents() {
+    public Observable<List<StudentEntity>> getAllStudentsFromServer() {
         return api.getAllStudents();
     }
 }
