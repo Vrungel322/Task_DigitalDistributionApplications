@@ -45,7 +45,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
 
     @Override
     public void uploadOneMorePage() {
-        limit = limit + IConstants.PAGE_SIZE;
+        increaseLimit();
         getStudentsFromDbByPages.setLimit(limit);
         getStudentsFromDbByPages.execute(getStudentsFromDbSubscriber());
     }
@@ -140,6 +140,10 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
                 }
             }
         };
+    }
+
+    private void increaseLimit() {
+        limit = limit + IConstants.PAGE_SIZE;
     }
 
     @Override

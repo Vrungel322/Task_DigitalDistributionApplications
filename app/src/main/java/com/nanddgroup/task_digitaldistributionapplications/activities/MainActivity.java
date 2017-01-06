@@ -25,6 +25,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.everything.android.ui.overscroll.IOverScrollDecor;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_BOUNCE_BACK;
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_END_SIDE;
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_START_SIDE;
+import static me.everything.android.ui.overscroll.IOverScrollState.STATE_IDLE;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView {
     @BindView(R.id.pbProgress)
@@ -51,30 +58,54 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         rvStudents.setItemAnimator(new DefaultItemAnimator());
         studentsAdapter = new StudentsAdapter(this, mainActivityPresenter, rvStudents);
         rvStudents.setAdapter(studentsAdapter);
-        rvStudents.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int visibleItemCount = linearLayoutManager.getChildCount();
-                int totalItemCount = linearLayoutManager.getItemCount();
-                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+//        rvStudents.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int visibleItemCount = linearLayoutManager.getChildCount();
+//                int totalItemCount = linearLayoutManager.getItemCount();
+//                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+//
+////                if (!isLoading && !isLastPage) {
+//                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+//                            && firstVisibleItemPosition >= 0
+//                            && totalItemCount >= IConstants.PAGE_SIZE) {
+//                        mainActivityPresenter.uploadOneMorePage();
+//                    }
+////                }
+//            }
+//        });
+        IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(rvStudents, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
-//                if (!isLoading && !isLastPage) {
-                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                            && firstVisibleItemPosition >= 0
-                            && totalItemCount >= IConstants.PAGE_SIZE) {
+        decor.setOverScrollStateListener((decor1, oldState, newState) -> {
+            switch (newState) {
+                case STATE_IDLE:
+                    // No over-scroll is in effect.
+                    break;
+                case STATE_DRAG_START_SIDE:
+                    // Dragging started at the left-end.
+                    break;
+                case STATE_DRAG_END_SIDE:
+                    // Dragging started at the right-end.
+                    break;
+                case STATE_BOUNCE_BACK:
+                    if (oldState == STATE_DRAG_START_SIDE) {
+                        // Dragging stopped -- view is starting to bounce back from the *left-end* onto natural position.
+                    } else { // i.e. (oldState == STATE_DRAG_END_SIDE)
+                        // View is starting to bounce back from the *right-end*.
                         mainActivityPresenter.uploadOneMorePage();
                     }
-//                }
+                    break;
             }
         });
+
         mainActivityPresenter.bind(this);
         mainActivityPresenter.uploadData();
 
     }
 
     @OnClick(R.id.fabFilter)
-    void onfabFilterClicked(){
+    void onfabFilterClicked() {
         mainActivityPresenter.filterData(IConstants.DB.STUDENT_NAME_COURSE_0, 1);
     }
 
