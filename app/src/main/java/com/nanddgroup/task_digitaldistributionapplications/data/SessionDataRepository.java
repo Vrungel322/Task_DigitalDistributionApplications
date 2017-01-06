@@ -1,5 +1,6 @@
 package com.nanddgroup.task_digitaldistributionapplications.data;
 
+import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
 import com.nanddgroup.task_digitaldistributionapplications.SessionRepository;
 import com.nanddgroup.task_digitaldistributionapplications.data.db.DbStudentHelper;
 import com.nanddgroup.task_digitaldistributionapplications.rest.RestApi;
@@ -42,8 +43,8 @@ public class SessionDataRepository implements SessionRepository {
     }
 
     @Override
-    public Observable<List<StudentEntity>> getStudentsFromDbByFilter(String courseName, Integer courseMark, Integer limit) {
-        return dbHelper.getAllFilteredStudentsFromDb(courseName, courseMark, limit);
+    public Observable<List<StudentEntity>> getStudentsFromDbByFilter(FilterParams filterParams, Integer limit) {
+        return dbHelper.getAllFilteredStudentsFromDb(filterParams.getFilterParam_name(), filterParams.getFilterParam_mark(), limit);
     }
 
     @Override

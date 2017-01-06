@@ -1,5 +1,6 @@
 package com.nanddgroup.task_digitaldistributionapplications.presenters;
 
+import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
 import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.domain.BaseUseCaseSubscriber;
 import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByFilter;
@@ -36,9 +37,8 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
     }
 
     @Override
-    public void filterData(String courseName, Integer courseMark) {
-        getStudentsFromDbByFilter.setCourseName(courseName);
-        getStudentsFromDbByFilter.setCourseMark(courseMark);
+    public void filterData(FilterParams filterParams) {
+        getStudentsFromDbByFilter.setFilterParams(filterParams);
         getStudentsFromDbByFilter.setLimit(limit);
         getStudentsFromDbByFilter.execute(getStudentsFromDbByFilterSubscriber());
     }
