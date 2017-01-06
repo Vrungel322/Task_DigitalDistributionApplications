@@ -3,8 +3,8 @@ package com.nanddgroup.task_digitaldistributionapplications.presenters;
 import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
 import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.domain.BaseUseCaseSubscriber;
-import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByFilter;
-import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByPages;
+import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByFilterUseCase;
+import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsFromDbByPagesUseCase;
 import com.nanddgroup.task_digitaldistributionapplications.domain.usecase.GetStudentsUseCase;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
@@ -19,16 +19,16 @@ import javax.inject.Inject;
 
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> implements IMainActivityPresenter {
     private GetStudentsUseCase getStudentsUseCase;
-    private GetStudentsFromDbByFilter getStudentsFromDbByFilter;
-    private GetStudentsFromDbByPages getStudentsFromDbByPages;
+    private GetStudentsFromDbByFilterUseCase getStudentsFromDbByFilterUseCase;
+    private GetStudentsFromDbByPagesUseCase getStudentsFromDbByPagesUseCase;
     private Integer limit = IConstants.PAGE_SIZE;
 
     @Inject
-    public MainActivityPresenter(GetStudentsUseCase getStudentsUseCase, GetStudentsFromDbByFilter getStudentsFromDbByFilter,
-                                 GetStudentsFromDbByPages getStudentsFromDbByPages) {
+    public MainActivityPresenter(GetStudentsUseCase getStudentsUseCase, GetStudentsFromDbByFilterUseCase getStudentsFromDbByFilterUseCase,
+                                 GetStudentsFromDbByPagesUseCase getStudentsFromDbByPagesUseCase) {
         this.getStudentsUseCase = getStudentsUseCase;
-        this.getStudentsFromDbByFilter = getStudentsFromDbByFilter;
-        this.getStudentsFromDbByPages = getStudentsFromDbByPages;
+        this.getStudentsFromDbByFilterUseCase = getStudentsFromDbByFilterUseCase;
+        this.getStudentsFromDbByPagesUseCase = getStudentsFromDbByPagesUseCase;
     }
 
     @Override
@@ -38,16 +38,16 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
 
     @Override
     public void filterData(FilterParams filterParams) {
-        getStudentsFromDbByFilter.setFilterParams(filterParams);
-        getStudentsFromDbByFilter.setLimit(limit);
-        getStudentsFromDbByFilter.execute(getStudentsFromDbByFilterSubscriber());
+        getStudentsFromDbByFilterUseCase.setFilterParams(filterParams);
+        getStudentsFromDbByFilterUseCase.setLimit(limit);
+        getStudentsFromDbByFilterUseCase.execute(getStudentsFromDbByFilterSubscriber());
     }
 
     @Override
     public void uploadOneMorePage() {
         increaseLimit();
-        getStudentsFromDbByPages.setLimit(limit);
-        getStudentsFromDbByPages.execute(getStudentsFromDbSubscriber());
+        getStudentsFromDbByPagesUseCase.setLimit(limit);
+        getStudentsFromDbByPagesUseCase.execute(getStudentsFromDbSubscriber());
     }
 
     public BaseUseCaseSubscriber<List<StudentEntity>> getStudentsFromDbSubscriber() {
@@ -96,8 +96,8 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
             public void onNext(List<StudentEntity> studentEntities) {
                 super.onNext(studentEntities);
                 if (getView() != null) {
-                    getStudentsFromDbByPages.setLimit(IConstants.PAGE_SIZE);
-                    getStudentsFromDbByPages.execute(getStudentsFromDbSubscriber());
+                    getStudentsFromDbByPagesUseCase.setLimit(IConstants.PAGE_SIZE);
+                    getStudentsFromDbByPagesUseCase.execute(getStudentsFromDbSubscriber());
                 }
             }
 
@@ -148,8 +148,8 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
 
     @Override
     public void unbind() {
-        getStudentsFromDbByPages.unsubscribe();
-        getStudentsFromDbByFilter.unsubscribe();
+        getStudentsFromDbByPagesUseCase.unsubscribe();
+        getStudentsFromDbByFilterUseCase.unsubscribe();
         getStudentsUseCase.unsubscribe();
         super.unbind();
     }

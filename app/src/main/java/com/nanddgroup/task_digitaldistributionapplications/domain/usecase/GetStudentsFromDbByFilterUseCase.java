@@ -16,7 +16,7 @@ import rx.Observable;
  * Created by Nikita on 06.01.2017.
  */
 
-public class GetStudentsFromDbByFilter extends UseCase<List<StudentEntity>> {
+public class GetStudentsFromDbByFilterUseCase extends UseCase<List<StudentEntity>> {
     private SessionRepository sessionRepository;
 //    private String courseName;
 //    private Integer courseMark;
@@ -24,7 +24,7 @@ public class GetStudentsFromDbByFilter extends UseCase<List<StudentEntity>> {
     private Integer limit;
 
     @Inject
-    public GetStudentsFromDbByFilter(SessionRepository sessionRepository) {
+    public GetStudentsFromDbByFilterUseCase(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 

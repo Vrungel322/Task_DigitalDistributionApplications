@@ -13,12 +13,12 @@ import rx.Observable;
  * Created by Nikita on 06.01.2017.
  */
 
-public class GetStudentsFromDbByPages extends UseCase<List<StudentEntity>> {
+public class GetStudentsFromDbByPagesUseCase extends UseCase<List<StudentEntity>> {
     private SessionRepository sessionRepository;
     private Integer limit;
 
     @Inject
-    public GetStudentsFromDbByPages(SessionRepository sessionRepository) {
+    public GetStudentsFromDbByPagesUseCase(SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 
