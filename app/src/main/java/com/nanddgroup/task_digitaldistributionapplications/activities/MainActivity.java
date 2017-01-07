@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import com.nanddgroup.task_digitaldistributionapplications.App;
 import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
-import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.R;
 import com.nanddgroup.task_digitaldistributionapplications.adapters.StudentsAdapter;
+import com.nanddgroup.task_digitaldistributionapplications.fragments.FilteringDialog;
 import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.nanddgroup.task_digitaldistributionapplications.views.IMainActivityView;
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     private StudentsAdapter studentsAdapter;
     private LinearLayoutManager linearLayoutManager;
+    private FilterParams filterParams;
 
     @Inject
     MainActivityPresenter mainActivityPresenter;
@@ -107,7 +108,14 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @OnClick(R.id.fabFilter)
     void onfabFilterClicked() {
-        mainActivityPresenter.filterData(new FilterParams(IConstants.DB.STUDENT_NAME_COURSE_0, 1));
+//        mainActivityPresenter.filterData(new FilterParams(IConstants.DB.STUDENT_NAME_COURSE_0, 1));
+        if (filterParams == null){
+            FilteringDialog.newInstance(new FilterParams(FilterParams.NONE_COURSE, FilterParams.NONE_MARK))
+                    .show(getSupportFragmentManager(), "filtering");
+        }
+        else {
+            FilteringDialog.newInstance(filterParams).show(getSupportFragmentManager(), "filtering");
+        }
     }
 
 //    @Override

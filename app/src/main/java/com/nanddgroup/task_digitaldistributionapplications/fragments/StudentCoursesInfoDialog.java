@@ -36,7 +36,7 @@ public class StudentCoursesInfoDialog extends DialogFragment implements IStudent
     Button bOkDialogCoursesInfo;
 
     @Inject
-    StudentCoursesInfoDialogPresenter presenteer;
+    StudentCoursesInfoDialogPresenter presenter;
 
     private StudentEntity studentEntity;
     private CoursesInfoAdapter coursesInfoAdapter;
@@ -53,7 +53,7 @@ public class StudentCoursesInfoDialog extends DialogFragment implements IStudent
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.getApp(getActivity()).getComponent().inject(this);
-        presenteer.bind(this);
+        presenter.bind(this);
         studentEntity = getArguments().getParcelable("STUDENT");
     }
 
@@ -66,7 +66,7 @@ public class StudentCoursesInfoDialog extends DialogFragment implements IStudent
         coursesInfoAdapter = new CoursesInfoAdapter(getContext(), R.layout.course_list_item);
         coursesInfoAdapter.updateList(studentEntity.getCourses());
         lvCourses.setAdapter(coursesInfoAdapter);
-        presenteer.countAverageMark(studentEntity);
+        presenter.countAverageMark(studentEntity);
         return rootView;
     }
 
@@ -87,7 +87,7 @@ public class StudentCoursesInfoDialog extends DialogFragment implements IStudent
 
     @Override
     public void onDestroy() {
-        presenteer.unbind();
+        presenter.unbind();
         super.onDestroy();
     }
 }

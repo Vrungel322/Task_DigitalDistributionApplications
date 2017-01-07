@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ExpandableListView
+        android:id="@+id/elvCourses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:alwaysDrawnWithCache="true"
+        android:choiceMode="singleChoice"
+        android:listSelector="#cacccccc"
+        tools:visibility="gone" />
+
+    <ExpandableListView
+        android:id="@+id/elvMarks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:alwaysDrawnWithCache="true"
+        android:choiceMode="singleChoice"
+        android:listSelector="#cacccccc"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_filters_are" />
+
+        <TextView
+            android:id="@+id/tvFilterCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text=" None" />
+
+        <TextView
+            android:id="@+id/tvFilterMark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text=" None" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/bClearFilters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="#26a5ff"
+            android:text="Clear"
+            android:textColor="#ffffff" />
+
+
+        <Button
+            android:id="@+id/bOkFiltering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginLeft="8dp"
+            android:background="#26a5ff"
+            android:text="Ok"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+</LinearLayout>
