@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.SimpleExpandableListAdapter;
 
 import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
+import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +23,11 @@ public class AdapterelvCourses {
     String[] groups = new String[] {"Course"};
 
     // названия телефонов (элементов)
-    String[] phonesHTC = new String[] {FilterParams.NONE_COURSE, "Course - 0", "Course - 1", "Course - 2", "Course - 3"};
+    String[] phonesHTC = new String[] {FilterParams.NONE_COURSE,
+            IConstants.DB.STUDENT_NAME_COURSE_0,
+            IConstants.DB.STUDENT_NAME_COURSE_1,
+            IConstants.DB.STUDENT_NAME_COURSE_2,
+            IConstants.DB.STUDENT_NAME_COURSE_3};
 
     // коллекция для групп
     ArrayList<Map<String, String>> groupData;

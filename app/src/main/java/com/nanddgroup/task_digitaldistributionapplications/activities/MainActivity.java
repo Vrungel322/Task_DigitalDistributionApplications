@@ -34,7 +34,7 @@ import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_EN
 import static me.everything.android.ui.overscroll.IOverScrollState.STATE_DRAG_START_SIDE;
 import static me.everything.android.ui.overscroll.IOverScrollState.STATE_IDLE;
 
-public class MainActivity extends AppCompatActivity implements IMainActivityView {
+public class MainActivity extends AppCompatActivity implements IMainActivityView, FilteringDialog.IFilterData {
     @BindView(R.id.pbProgress)
     ProgressBar pbProgress;
     @BindView(R.id.rvStudents)
@@ -95,7 +95,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                         // Dragging stopped -- view is starting to bounce back from the *left-end* onto natural position.
                     } else { // i.e. (oldState == STATE_DRAG_END_SIDE)
                         // View is starting to bounce back from the *right-end*.
-                        mainActivityPresenter.uploadOneMorePage();
+                        if (filterParams.isEmpty()){
+                            mainActivityPresenter.uploadOneMorePage();
+                        }
+                        else {
+                            mainActivityPresenter.increaseLimit();
+                            mainActivityPresenter.filterData(filterParams);
+                        }
                     }
                     break;
             }
@@ -156,5 +162,16 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     protected void onDestroy() {
         mainActivityPresenter.unbind();
         super.onDestroy();
+    }
+
+    @Override
+    public void filterByParams(FilterParams filterParams) {
+        this.filterParams = filterParams;
+        if (filterParams.getFilterParam_mark() == FilterParams.NONE_MARK
+                | filterParams.getFilterParam_name().equals(FilterParams.NONE_COURSE)){
+            filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
+            filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
+        }
+        mainActivityPresenter.filterData(filterParams);
     }
 }

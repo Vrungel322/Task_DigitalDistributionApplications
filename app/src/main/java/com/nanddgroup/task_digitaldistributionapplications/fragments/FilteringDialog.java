@@ -1,5 +1,6 @@
 package com.nanddgroup.task_digitaldistributionapplications.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -40,6 +41,7 @@ public class FilteringDialog extends DialogFragment {
 
 
     private FilterParams filterParams;
+    private IFilterData iFilterData;
 
     public static FilteringDialog newInstance(FilterParams filterParams) {
         Bundle args = new Bundle();
@@ -47,6 +49,12 @@ public class FilteringDialog extends DialogFragment {
         FilteringDialog fragment = new FilteringDialog();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        iFilterData = (IFilterData)activity;
     }
 
     @Override
@@ -62,10 +70,22 @@ public class FilteringDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_filter_students, container, false);
         ButterKnife.bind(this, rootView);
         getDialog().setTitle("Filters");
+        setIncomeFilterParams();
         settingsForELVCourses();
         settingsForELVMarks();
 
         return rootView;
+    }
+
+    private void setIncomeFilterParams() {
+        if (filterParams.isEmpty()){
+            tvFilterCourse.setText("");
+            tvFilterMark.setText("");
+        }
+        else {
+            tvFilterCourse.setText(filterParams.getFilterParam_name() + ", ");
+            tvFilterMark.setText(String.valueOf(filterParams.getFilterParam_mark()));
+        }
     }
 
     private void settingsForELVCourses() {
@@ -108,7 +128,7 @@ public class FilteringDialog extends DialogFragment {
             elvMarks.collapseGroup(groupPosition);
             switch (childPosition) {
                 case 0:
-                    tvFilterMark.setText(" 0");
+                    tvFilterMark.setText(" NoNE");
                     filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
                     break;
                 case 1:
@@ -138,6 +158,8 @@ public class FilteringDialog extends DialogFragment {
 
     @OnClick(R.id.bOkFiltering)
     public void bOkFilteringClicked(){
+        iFilterData.filterByParams(filterParams);
+        getDialog().cancel();
     }
 
     @OnClick(R.id.bClearFilters)
@@ -146,5 +168,9 @@ public class FilteringDialog extends DialogFragment {
         filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
         tvFilterCourse.setText("");
         tvFilterMark.setText("");
+    }
+
+   public interface IFilterData{
+        void filterByParams(FilterParams filterParams);
     }
 }

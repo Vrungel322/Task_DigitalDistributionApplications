@@ -133,7 +133,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> impl
         };
     }
 
-    private void increaseLimit() {
+    public void increaseLimit() {
         limit = limit + IConstants.PAGE_SIZE;
     }
 

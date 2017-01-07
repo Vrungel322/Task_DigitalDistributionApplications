@@ -3,8 +3,6 @@ package com.nanddgroup.task_digitaldistributionapplications.adapters;
 import android.content.Context;
 import android.widget.SimpleExpandableListAdapter;
 
-import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +20,7 @@ public class AdapterelvMarks {
     String[] groups = new String[] {"Mark"};
 
     // названия телефонов (элементов)
-    String[] phonesHTC = new String[] {String.valueOf(FilterParams.NONE_MARK), "1", "2", "3", "4", "5"};
+    String[] phonesHTC = new String[] {"NoNE", "1", "2", "3", "4", "5"};
 
     // коллекция для групп
     ArrayList<Map<String, String>> groupData;
