@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
                 | filterParams.getFilterParam_name().equals(FilterParams.NONE_COURSE)) {
             filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
             filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
+            showMessage("You need to choose both parameters");
         }
         mainActivityPresenter.filterData(filterParams);
     }
