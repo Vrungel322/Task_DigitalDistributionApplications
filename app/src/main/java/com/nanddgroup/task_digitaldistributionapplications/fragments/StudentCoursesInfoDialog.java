@@ -71,7 +71,7 @@ public class StudentCoursesInfoDialog extends DialogFragment implements IStudent
     }
 
     @OnClick(R.id.bOkDialogCoursesInfo)
-    public void bOkDialogCoursesInfoClicked(){
+    public void bOkDialogCoursesInfoClicked() {
         getDialog().cancel();
     }
 

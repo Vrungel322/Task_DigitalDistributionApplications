@@ -39,7 +39,6 @@ public class FilteringDialog extends DialogFragment {
     @BindView(R.id.bOkFiltering)
     Button bOkFiltering;
 
-
     private FilterParams filterParams;
     private IFilterData iFilterData;
 
@@ -54,13 +53,12 @@ public class FilteringDialog extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        iFilterData = (IFilterData)activity;
+        iFilterData = (IFilterData) activity;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        App.getApp(getActivity()).getComponent().inject(this);
         filterParams = getArguments().getParcelable("FILTER_PARAMS");
     }
 
@@ -78,11 +76,10 @@ public class FilteringDialog extends DialogFragment {
     }
 
     private void setIncomeFilterParams() {
-        if (filterParams.isEmpty()){
+        if (filterParams.isEmpty()) {
             tvFilterCourse.setText("");
             tvFilterMark.setText("");
-        }
-        else {
+        } else {
             tvFilterCourse.setText(filterParams.getFilterParam_name() + ", ");
             tvFilterMark.setText(String.valueOf(filterParams.getFilterParam_mark()));
         }
@@ -96,7 +93,7 @@ public class FilteringDialog extends DialogFragment {
             elvCourses.collapseGroup(groupPosition);
             switch (childPosition) {
                 case 0:
-                   tvFilterCourse.setText(" NoNE, ");
+                    tvFilterCourse.setText(" NoNE, ");
                     filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
                     break;
                 case 1:
@@ -157,20 +154,20 @@ public class FilteringDialog extends DialogFragment {
     }
 
     @OnClick(R.id.bOkFiltering)
-    public void bOkFilteringClicked(){
+    public void bOkFilteringClicked() {
         iFilterData.filterByParams(filterParams);
         getDialog().cancel();
     }
 
     @OnClick(R.id.bClearFilters)
-    public void bClearFiltersClicked(){
+    public void bClearFiltersClicked() {
         filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
         filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
         tvFilterCourse.setText("");
         tvFilterMark.setText("");
     }
 
-   public interface IFilterData{
+    public interface IFilterData {
         void filterByParams(FilterParams filterParams);
     }
 }

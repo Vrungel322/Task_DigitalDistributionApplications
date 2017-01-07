@@ -18,7 +18,7 @@ public interface SessionRepository {
 
     Observable<List<StudentEntity>> getStudentsFromDbByFilter(FilterParams filterParams, Integer limit);
 
-    Observable<List<StudentEntity>> getStudentsFromDb();
+//    Observable<List<StudentEntity>> getStudentsFromDb();
 
     Observable<List<StudentEntity>> getLimitNumberOfStudentsFromDb(Integer limit);
 }

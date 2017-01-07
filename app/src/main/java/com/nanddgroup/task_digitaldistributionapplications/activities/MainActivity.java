@@ -58,47 +58,24 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         linearLayoutManager = new LinearLayoutManager(this);
         rvStudents.setLayoutManager(linearLayoutManager);
         rvStudents.setItemAnimator(new DefaultItemAnimator());
-        studentsAdapter = new StudentsAdapter(this, mainActivityPresenter, rvStudents);
+        studentsAdapter = new StudentsAdapter(this, rvStudents);
         rvStudents.setAdapter(studentsAdapter);
-//        rvStudents.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                int visibleItemCount = linearLayoutManager.getChildCount();
-//                int totalItemCount = linearLayoutManager.getItemCount();
-//                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
-//
-////                if (!isLoading && !isLastPage) {
-//                    if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-//                            && firstVisibleItemPosition >= 0
-//                            && totalItemCount >= IConstants.PAGE_SIZE) {
-//                        mainActivityPresenter.uploadOneMorePage();
-//                    }
-////                }
-//            }
-//        });
-        IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(rvStudents, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
+        IOverScrollDecor decor = OverScrollDecoratorHelper.setUpOverScroll(rvStudents, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
         decor.setOverScrollStateListener((decor1, oldState, newState) -> {
             switch (newState) {
                 case STATE_IDLE:
-                    // No over-scroll is in effect.
                     break;
                 case STATE_DRAG_START_SIDE:
-                    // Dragging started at the left-end.
                     break;
                 case STATE_DRAG_END_SIDE:
-                    // Dragging started at the right-end.
                     break;
                 case STATE_BOUNCE_BACK:
                     if (oldState == STATE_DRAG_START_SIDE) {
-                        // Dragging stopped -- view is starting to bounce back from the *left-end* onto natural position.
-                    } else { // i.e. (oldState == STATE_DRAG_END_SIDE)
-                        // View is starting to bounce back from the *right-end*.
-                        if (filterParams.isEmpty()){
+                    } else {
+                        if (filterParams.isEmpty()) {
                             mainActivityPresenter.uploadOneMorePage();
-                        }
-                        else {
+                        } else {
                             mainActivityPresenter.increaseLimit();
                             mainActivityPresenter.filterData(filterParams);
                         }
@@ -114,21 +91,13 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
     @OnClick(R.id.fabFilter)
     void onfabFilterClicked() {
-//        mainActivityPresenter.filterData(new FilterParams(IConstants.DB.STUDENT_NAME_COURSE_0, 1));
-        if (filterParams == null){
-            FilteringDialog.newInstance(new FilterParams(FilterParams.NONE_COURSE, FilterParams.NONE_MARK))
+        if (filterParams == null) {
+            FilteringDialog.newInstance(FilterParams.produseEmpty())
                     .show(getSupportFragmentManager(), "filtering");
-        }
-        else {
+        } else {
             FilteringDialog.newInstance(filterParams).show(getSupportFragmentManager(), "filtering");
         }
     }
-
-//    @Override
-//    public void showData(List<StudentEntity> studentEntities) {
-//        studentsAdapter.showUpdatedStudents(studentEntities);
-//        studentsAdapter.setStudents_savelist(studentEntities);
-//    }
 
     @Override
     public void showOneMorePageData(List<StudentEntity> studentEntities) {
@@ -168,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     public void filterByParams(FilterParams filterParams) {
         this.filterParams = filterParams;
         if (filterParams.getFilterParam_mark() == FilterParams.NONE_MARK
-                | filterParams.getFilterParam_name().equals(FilterParams.NONE_COURSE)){
+                | filterParams.getFilterParam_name().equals(FilterParams.NONE_COURSE)) {
             filterParams.setFilterParam_mark(FilterParams.NONE_MARK);
             filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
         }

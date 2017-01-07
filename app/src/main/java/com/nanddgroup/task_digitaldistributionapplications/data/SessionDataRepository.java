@@ -29,14 +29,11 @@ public class SessionDataRepository implements SessionRepository {
                 .flatMap(this::saveStudentsToDb);
     }
 
-
-
     @Override
     public Observable<List<StudentEntity>> saveStudentsToDb(List<StudentEntity> students) {
         return Observable.from(students)
                 .map(studentEntity -> {
                     dbHelper.insert(studentEntity);
-//                    Log.wtf("DB_TEST", studentEntity.getFirstName());
                     return studentEntity;
                 })
                 .toList();
@@ -47,10 +44,10 @@ public class SessionDataRepository implements SessionRepository {
         return dbHelper.getAllFilteredStudentsFromDb(filterParams.getFilterParam_name(), filterParams.getFilterParam_mark(), limit);
     }
 
-    @Override
-    public Observable<List<StudentEntity>> getStudentsFromDb() {
-        return dbHelper.getAllStudentsFromDb();
-    }
+//    @Override
+//    public Observable<List<StudentEntity>> getStudentsFromDb() {
+//        return dbHelper.getAllStudentsFromDb();
+//    }
 
     @Override
     public Observable<List<StudentEntity>> getLimitNumberOfStudentsFromDb(Integer limit) {

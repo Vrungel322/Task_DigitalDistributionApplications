@@ -8,6 +8,8 @@ import com.nanddgroup.task_digitaldistributionapplications.FilterParams;
 
 public interface IMainActivityPresenter {
     void uploadData();
+
     void filterData(FilterParams filterParams);
+
     void uploadOneMorePage();
 }

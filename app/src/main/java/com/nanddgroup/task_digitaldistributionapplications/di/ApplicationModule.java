@@ -38,7 +38,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    Context provideContext(){
+    Context provideContext() {
         return app;
     }
 
@@ -57,9 +57,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     public Retrofit provideRetrofit(OkHttpClient okClient) {
-//    public Retrofit provideRetrofit(OkHttpClient okClient) {
         return new Retrofit.Builder()
-//                .baseUrl(Constants.BASE_URL)
                 .baseUrl(IConstants.BASE_URL)
                 .client(okClient)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -99,8 +97,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public SessionRepository provideRepository(RestApi restApi,
-                                               DbStudentHelper dbHelper) {
+    public SessionRepository provideRepository(RestApi restApi, DbStudentHelper dbHelper) {
         return new SessionDataRepository(restApi, dbHelper);
     }
 }

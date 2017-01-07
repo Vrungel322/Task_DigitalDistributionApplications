@@ -13,7 +13,7 @@ public class FilterParams implements Parcelable {
     private String filterParam_name;
     private int filterParam_mark;
 
-    public FilterParams(String filterParam_name , int filterParam_mark) {
+    public FilterParams(String filterParam_name, int filterParam_mark) {
         this.filterParam_name = filterParam_name;
         this.filterParam_mark = filterParam_mark;
     }
@@ -34,15 +34,14 @@ public class FilterParams implements Parcelable {
         this.filterParam_name = filterParam_name;
     }
 
-    public static FilterParams produseEmpty(){
+    public static FilterParams produseEmpty() {
         return new FilterParams(NONE_COURSE, NONE_MARK);
     }
 
-    public boolean isEmpty(){
-        if (this.filterParam_mark == NONE_MARK | this.filterParam_name.equals(NONE_COURSE)){
+    public boolean isEmpty() {
+        if (this.filterParam_mark == NONE_MARK | this.filterParam_name.equals(NONE_COURSE)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

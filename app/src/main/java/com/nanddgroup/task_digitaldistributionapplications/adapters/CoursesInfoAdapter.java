@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 public class CoursesInfoAdapter extends ArrayAdapter<Course> {
-    private List<Course>  list;
+    private List<Course> list;
     private Context context;
     private LayoutInflater inflater;
 
@@ -28,10 +28,11 @@ public class CoursesInfoAdapter extends ArrayAdapter<Course> {
         super(context, resource);
         list = new ArrayList<>();
         this.context = context;
-        this.inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+        this.inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ;
     }
 
-    public void updateList(List<Course>  list){
+    public void updateList(List<Course> list) {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();
@@ -52,14 +53,12 @@ public class CoursesInfoAdapter extends ArrayAdapter<Course> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if (view == null){
+        if (view == null) {
             view = inflater.inflate(R.layout.course_list_item, parent, false);
         }
-        ((TextView)view.findViewById(R.id.tvCourseName)).setText(String.valueOf(getItem(position).getName()));
-        ((TextView)view.findViewById(R.id.tvCourseMark)).setText(String.valueOf(getItem(position).getMark()));
-
+        ((TextView) view.findViewById(R.id.tvCourseName)).setText(String.valueOf(getItem(position).getName()));
+        ((TextView) view.findViewById(R.id.tvCourseMark)).setText(String.valueOf(getItem(position).getMark()));
 
         return view;
     }
-
 }

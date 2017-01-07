@@ -9,7 +9,7 @@ public interface IConstants {
     String BASE_URL = "http://" + DOMEN + "/";
     Integer PAGE_SIZE = 20;
 
-    interface DB{
+    interface DB {
         String STUDENT_ID = "STUDENT_ID";
         String STUDENT_ORIGINAL_ID = "STUDENT_ORIGINAL_ID";
         String STUDENT_FIRST_NAME = "STUDENT_FIRST_NAME";

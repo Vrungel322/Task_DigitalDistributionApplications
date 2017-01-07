@@ -1,7 +1,6 @@
 package com.nanddgroup.task_digitaldistributionapplications.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.R;
 import com.nanddgroup.task_digitaldistributionapplications.activities.MainActivity;
 import com.nanddgroup.task_digitaldistributionapplications.fragments.StudentCoursesInfoDialog;
-import com.nanddgroup.task_digitaldistributionapplications.presenters.MainActivityPresenter;
 import com.nanddgroup.task_digitaldistributionapplications.rest.entity.StudentEntity;
 import com.squareup.picasso.Picasso;
 
@@ -34,19 +32,13 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
     private final Context context;
     private final List<StudentEntity> students = new ArrayList<>();
     private final List<StudentEntity> students_savelist = new ArrayList<>();
-    private MainActivityPresenter mainActivityPresenter;
     private RecyclerView rvStudents;
 
-    @Nullable
-    private OnItemLongClickListener onItemLongClickListener;
-    @Nullable
-    private OnItemClickListener onItemClickListener;
     private int lastPosition;
 
-    public StudentsAdapter(Context context, MainActivityPresenter mainActivityPresenter, RecyclerView rvStudents) {
+    public StudentsAdapter(Context context, RecyclerView rvStudents) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
-        this.mainActivityPresenter = mainActivityPresenter;
         this.rvStudents = rvStudents;
     }
 
@@ -103,24 +95,11 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         notifyDataSetChanged();
     }
 
-//    public void showUpdatedStudents(List<StudentEntity> studentEntities) {
-//        this.students.clear();
-//        this.students.addAll(studentEntities);
-//        int size = getItemCount();
-//        notifyDataSetChanged();
-////        scrollToLastMessage();
-//    }
-
     public void showOneMorePageStudents(List<StudentEntity> studentEntities) {
         this.students.clear();
         this.students.addAll(studentEntities);
         int size = getItemCount();
-//        if (size == 0){
-//            notifyDataSetChanged();
-//        }
-//        else {
         notifyItemRangeInserted(size, IConstants.PAGE_SIZE);
-//        }
     }
 
     public void setStudents_savelist(List<StudentEntity> students) {
@@ -142,7 +121,6 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         @BindView(R.id.ivInfo)
         ImageView ivInfo;
 
-
         StudentViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -154,19 +132,4 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
         return true;
     }
 
-    public void setOnItemLongClickListener(@Nullable OnItemLongClickListener onItemLongClickListener) {
-        this.onItemLongClickListener = onItemLongClickListener;
-    }
-
-    public void setOnItemClickListener(@Nullable OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
-    public interface OnItemLongClickListener {
-        void onLongClick(int position);
-    }
-
-    public interface OnItemClickListener {
-        void onClick(int position);
-    }
 }

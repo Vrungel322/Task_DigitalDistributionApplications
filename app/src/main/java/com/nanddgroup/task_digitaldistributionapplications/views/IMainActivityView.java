@@ -9,7 +9,6 @@ import java.util.List;
  */
 
 public interface IMainActivityView extends IAppMainView {
-//    void showData(List<StudentEntity> studentEntities);
 
     void showOneMorePageData(List<StudentEntity> studentEntities);
 

@@ -9,11 +9,11 @@ import java.util.Calendar;
  */
 
 public class Utility {
-    public static String millisToDate(Integer millis){
+    public static String millisToDate(Integer millis) {
 
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        long milliSeconds= Long.parseLong(millis.toString());
+        long milliSeconds = Long.parseLong(millis.toString());
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());

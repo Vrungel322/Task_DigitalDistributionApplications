@@ -3,7 +3,6 @@ package com.nanddgroup.task_digitaldistributionapplications.data.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.nanddgroup.task_digitaldistributionapplications.IConstants;
 import com.nanddgroup.task_digitaldistributionapplications.data.mappers.StudentEntityToContentValueMapper;
@@ -59,35 +58,6 @@ public class DbStudentHelper {
     public long insert(StudentEntity studentEntity) {
         SQLiteDatabase db = helper.getWritableDatabase();
         long id = db.insert(TABLE_NAME, null, mapper.transform(studentEntity));
-//        String insertStudent = "INSERT INTO " + TABLE_NAME + "( " +
-//                "'" +IConstants.DB.STUDENT_ORIGINAL_ID + "'" + ", " +
-//                "'" +IConstants.DB.STUDENT_FIRST_NAME + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_LAST_NAME + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_BIRTHDAY + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_MARK_COURSE_0 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_MARK_COURSE_1 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_MARK_COURSE_2 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_MARK_COURSE_3 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_NAME_COURSE_0 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_NAME_COURSE_1 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_NAME_COURSE_2 + "'"  + ", " +
-//                "'" +IConstants.DB.STUDENT_NAME_COURSE_3 + "'"  +
-//                ") VALUES ( " +
-//                "'" + studentEntity.getId() + "'" + "," +
-//                "'" + studentEntity.getFirstName() + "'" + "," +
-//                "'" + studentEntity.getLastName() + "'" + "," +
-//                "'" + String.valueOf(studentEntity.getBirthday()) + "'" + "," +
-//                studentEntity.getCourses().get(0).getMark() + "," +
-//                studentEntity.getCourses().get(1).getMark() + "," +
-//                studentEntity.getCourses().get(2).getMark() + "," +
-//                studentEntity.getCourses().get(3).getMark() + "," +
-//                "'" + studentEntity.getCourses().get(0).getName() + "'" + "," +
-//                "'" + studentEntity.getCourses().get(1).getName() + "'" + "," +
-//                "'" + studentEntity.getCourses().get(2).getName() + "'" + "," +
-//                "'" + studentEntity.getCourses().get(3).getName() + "'" +
-//                ")";
-//        Log.e("helper", insertStudent);
-//        db.execSQL(insertStudent);
         return id;
     }
 
@@ -105,27 +75,25 @@ public class DbStudentHelper {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark,
-                                                                        Integer limit) {
+    public Observable<List<StudentEntity>> getAllFilteredStudentsFromDb(String courseName, Integer courseMark, Integer limit) {
         String selectByMark = null;
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_0)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
+                    IConstants.DB.STUDENT_MARK_COURSE_0 + " = " + courseMark + ") " + " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_1)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
+                    IConstants.DB.STUDENT_MARK_COURSE_1 + " = " + courseMark + ") " + " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_2)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
+                    IConstants.DB.STUDENT_MARK_COURSE_2 + " = " + courseMark + ") " + " LIMIT " + limit.toString();
         }
         if (courseName.equals(IConstants.DB.STUDENT_NAME_COURSE_3)) {
             selectByMark = "SELECT * FROM " + TABLE_NAME + " WHERE " + "( " +
-                    IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark + ") "+ " LIMIT " + limit.toString();
+                    IConstants.DB.STUDENT_MARK_COURSE_3 + " = " + courseMark + ") " + " LIMIT " + limit.toString();
         }
-        Log.e("helper", selectByMark);
-        //todo right selection
+//        Log.e("helper", selectByMark);
         return select(selectByMark)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
