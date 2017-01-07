@@ -34,6 +34,10 @@ public class FilterParams implements Parcelable {
         this.filterParam_name = filterParam_name;
     }
 
+    public static FilterParams produseEmpty(){
+        return new FilterParams(NONE_COURSE, NONE_MARK);
+    }
+
     public boolean isEmpty(){
         if (this.filterParam_mark == NONE_MARK | this.filterParam_name.equals(NONE_COURSE)){
             return true;

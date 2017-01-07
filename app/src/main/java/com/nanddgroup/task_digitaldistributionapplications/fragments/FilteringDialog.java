@@ -100,19 +100,19 @@ public class FilteringDialog extends DialogFragment {
                     filterParams.setFilterParam_name(FilterParams.NONE_COURSE);
                     break;
                 case 1:
-                    tvFilterCourse.setText(" Course - 0, ");
+                    tvFilterCourse.setText(" Course_0, ");
                     filterParams.setFilterParam_name(IConstants.DB.STUDENT_NAME_COURSE_0);
                     break;
                 case 2:
-                    tvFilterCourse.setText(" Course - 1, ");
+                    tvFilterCourse.setText(" Course_1, ");
                     filterParams.setFilterParam_name(IConstants.DB.STUDENT_NAME_COURSE_1);
                     break;
                 case 3:
-                    tvFilterCourse.setText(" Course - 2, ");
+                    tvFilterCourse.setText(" Course_2, ");
                     filterParams.setFilterParam_name(IConstants.DB.STUDENT_NAME_COURSE_2);
                     break;
                 case 4:
-                    tvFilterCourse.setText(" Course - 3, ");
+                    tvFilterCourse.setText(" Course_3, ");
                     filterParams.setFilterParam_name(IConstants.DB.STUDENT_NAME_COURSE_3);
                     break;
             }

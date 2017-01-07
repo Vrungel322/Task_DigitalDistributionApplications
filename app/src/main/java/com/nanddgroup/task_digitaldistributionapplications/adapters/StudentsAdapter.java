@@ -65,9 +65,10 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
                 .into(holder.ivStudentIcon);
         holder.tvStudentsFullName.setText(student.getFirstName() + " " + student.getLastName());
         holder.tvStudentsBirthDate.setText(String.valueOf(student.getBirthday()));
+//        holder.tvStudentsBirthDate.setText(Utility.millisToDate(student.getBirthday()));
         holder.ivInfo.setOnClickListener(view -> {
             StudentCoursesInfoDialog.newInstance(student)
-                    .show(((MainActivity)context).getSupportFragmentManager(), "tag");
+                    .show(((MainActivity) context).getSupportFragmentManager(), "tag");
         });
 
         addAnimation(holder, position);
@@ -118,11 +119,11 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.Studen
 //            notifyDataSetChanged();
 //        }
 //        else {
-            notifyItemRangeInserted(size, IConstants.PAGE_SIZE);
+        notifyItemRangeInserted(size, IConstants.PAGE_SIZE);
 //        }
     }
 
-    public void setStudents_savelist(List<StudentEntity> students){
+    public void setStudents_savelist(List<StudentEntity> students) {
         students_savelist.clear();
         students_savelist.addAll(students);
     }

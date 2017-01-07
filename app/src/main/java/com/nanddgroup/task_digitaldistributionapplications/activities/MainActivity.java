@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
         mainActivityPresenter.bind(this);
         mainActivityPresenter.uploadData();
-
+        filterParams = FilterParams.produseEmpty();
     }
 
     @OnClick(R.id.fabFilter)
